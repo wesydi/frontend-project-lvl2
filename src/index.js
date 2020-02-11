@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 import { uniq, has } from 'lodash';
 
 const genDiff = (firstConfig, secondConfig) => {
