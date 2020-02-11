@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import gendiff from '..';
+import genDiff from '..';
 
 const program = require('commander');
 const fs = require('fs');
@@ -15,7 +15,7 @@ program
     (beforeConfig, afterConfig) => {
       const before = JSON.parse(fs.readFileSync(`${path.resolve(process.cwd(), beforeConfig)}`));
       const after = JSON.parse(fs.readFileSync(`${path.resolve(process.cwd(), afterConfig)}`));
-      console.log(gendiff(before, after));
+      console.log(genDiff(before, after));
     },
   );
 
