@@ -1,29 +1,25 @@
-#!/usr/bin/env node
+import { uniq, has } from 'lodash';
 
-import fs from 'fs';
-import path from 'path';
-import program from 'commander';
-import genDiff from '..';
-
-const difference = (beforeConfig, afterConfig) => {
-  const before = JSON.parse(fs.readFileSync(`${path.resolve(process.cwd(), beforeConfig)}`));
-  const after = JSON.parse(fs.readFileSync(`${path.resolve(process.cwd(), afterConfig)}`));
-  console.log(genDiff(before, after));
-  return genDiff(before, after);
+const genDiff = (firstConfig, secondConfig) => {
+  const keys = uniq(
+    [...Object.keys(firstConfig), ...Object.keys(secondConfig)].sort(),
+  );
+  const result = keys.reduce((acc, key) => {
+    if (firstConfig[key] === secondConfig[key]) acc.push(`   ${key}: ${firstConfig[key]}\n`);
+    if (!has(secondConfig, key)) acc.push(` - ${key}: ${firstConfig[key]}\n`);
+    if (!has(firstConfig, key)) acc.push(` + ${key}: ${secondConfig[key]}\n`);
+    if (
+      firstConfig[key] !== secondConfig[key]
+      && has(secondConfig, key)
+      && has(firstConfig, key)
+    ) {
+      acc.push(` - ${key}: ${firstConfig[key]}\n`);
+      acc.push(` + ${key}: ${secondConfig[key]}\n`);
+    }
+    return acc;
+  }, ['{\n']);
+  result.push('}');
+  return result.join('');
 };
 
-
-program
-  .description('Compares two configuration files and shows a difference.')
-  .version('0.0.1')
-  .option('-f, --format [type]', 'output format')
-  .arguments('<firstConfig> <secondConfig>')
-  .action(
-    (beforeConfig, afterConfig) => {
-      difference(beforeConfig, afterConfig);
-    },
-  );
-
-program.parse(process.argv);
-
-export default difference;
+export default genDiff;
