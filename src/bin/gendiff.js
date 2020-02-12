@@ -1,10 +1,17 @@
 #!/usr/bin/env node
 
-import gendiff from '..';
+import fs from 'fs';
+import path from 'path';
+import program from 'commander';
+import genDiff from '..';
 
-const program = require('commander');
-const fs = require('fs');
-const path = require('path');
+const difference = (beforeConfig, afterConfig) => {
+  const before = JSON.parse(fs.readFileSync(`${path.resolve(process.cwd(), beforeConfig)}`));
+  const after = JSON.parse(fs.readFileSync(`${path.resolve(process.cwd(), afterConfig)}`));
+  console.log(genDiff(before, after));
+  return genDiff(before, after);
+};
+
 
 program
   .description('Compares two configuration files and shows a difference.')
@@ -13,10 +20,10 @@ program
   .arguments('<firstConfig> <secondConfig>')
   .action(
     (beforeConfig, afterConfig) => {
-      const before = JSON.parse(fs.readFileSync(`${path.resolve(process.cwd(), beforeConfig)}`));
-      const after = JSON.parse(fs.readFileSync(`${path.resolve(process.cwd(), afterConfig)}`));
-      console.log(gendiff(before, after));
+      difference(beforeConfig, afterConfig);
     },
   );
 
 program.parse(process.argv);
+
+export default difference;
