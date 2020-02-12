@@ -8,8 +8,3 @@ test('relative path', () => {
   const after = `${__dirname}/../__fixtures__/after.json`;
   expect(gendiff(before, after)).toEqual(diff);
 });
-test('absolute path', () => {
-  const before = '~/frontend-project-lvl2/__fixtures__/before.json';
-  const after = '~/frontend-project-lvl2/__fixtures__/after.json';
-  expect(gendiff(before, after)).toEqual(diff);
-});
