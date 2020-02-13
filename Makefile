@@ -5,6 +5,10 @@ publish:
 lint:
 	npx eslint .
 test: 
+<<<<<<< HEAD
 	npx jest
+=======
+	npm test
+>>>>>>> branch2
 test-coverage:
 	npm test -- --coverage
