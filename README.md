@@ -7,3 +7,6 @@ Difference between two json files:
 
 Difference between two yml files:
 [![asciicast](https://asciinema.org/a/oLj2N6xm4OW1qHpUZ44GyRazX.svg)](https://asciinema.org/a/oLj2N6xm4OW1qHpUZ44GyRazX)
+
+Difference between two ini files:
+[![asciicast](https://asciinema.org/a/bZsrM0M41iDyXqwu5lhIaIW52.svg)](https://asciinema.org/a/bZsrM0M41iDyXqwu5lhIaIW52)
