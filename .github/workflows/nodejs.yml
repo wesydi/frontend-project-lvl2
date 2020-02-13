@@ -10,5 +10,14 @@ jobs:
         run: make install
       - name: Lint
         run: make lint
+        env:
+          global:
+            - CC_TEST_REPORTER_ID=<ccfa888f2e1007081b043c04e70bb4330f1e52016d3daa79f001d7f3eb06cbab>
+        before_script:
+          - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+          - chmod +x ./cc-test-reporter
+          - ./cc-test-reporter before-build
       - name: Test
         run: make test
+        after_script:
+          - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT 
