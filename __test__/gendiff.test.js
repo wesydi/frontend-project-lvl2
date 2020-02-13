@@ -1,5 +1,5 @@
 import fs from 'fs';
-import difference from '../src/difference.js';
+import difference from '../src/difference';
 
 const diff = fs.readFileSync(`${__dirname}/../__fixtures__/result.txt`).toString();
 
