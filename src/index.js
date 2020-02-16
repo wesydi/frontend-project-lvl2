@@ -5,7 +5,10 @@ const genDiff = (firstConfig, secondConfig) => {
     [...Object.keys(firstConfig), ...Object.keys(secondConfig)].sort(),
   );
   const result = keys.reduce((acc, key) => {
-    if (firstConfig[key] === secondConfig[key]) acc.push(`   ${key}: ${firstConfig[key]}\n`);
+    if (firstConfig[key] instanceof Object && secondConfig[key] instanceof Object && firstConfig[key] !== secondConfig[key]) {
+      acc.push(`   ${key }:${genDiff(firstConfig[key], secondConfig[key])}\n`);
+    }
+    if (firstConfig[key] === secondConfig[key] && firstConfig[key] instanceof Object && secondConfig[key] instanceof Object) acc.push(`   ${key}: ${firstConfig[key]}\n`);
     if (!has(secondConfig, key)) acc.push(` - ${key}: ${firstConfig[key]}\n`);
     if (!has(firstConfig, key)) acc.push(` + ${key}: ${secondConfig[key]}\n`);
     if (
