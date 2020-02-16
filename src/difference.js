@@ -1,9 +1,9 @@
-import parser from './parsers';
+import parse from './parsers';
 import genDiff from '.';
 
 const difference = (beforeConfig, afterConfig) => {
-  const before = parser(beforeConfig);
-  const after = parser(afterConfig);
+  const before = parse(beforeConfig);
+  const after = parse(afterConfig);
   return genDiff(before, after);
 };
 export default difference;
