@@ -56,7 +56,7 @@ const render = (config1, config2) => {
     const { name, type, value, valuePrevious, children } = data[key];
     if (type === 'unchanged') acc.push(`   ${name}:${value}\n`);
     if (type === 'added') acc.push(` + ${name}:${value}\n`);
-    if (type === 'delete') acc.push(` - ${name}:${valuePrevious}\n`);
+    if (type === 'deleted') acc.push(` - ${name}:${valuePrevious}\n`);
     if (type === 'edited') {
       acc.push(` - ${name}:${valuePrevious}\n`);
       acc.push(` + ${name}:${value}\n`);
