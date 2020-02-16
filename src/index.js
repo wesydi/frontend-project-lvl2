@@ -4,10 +4,10 @@ const stringify = (element) => {
   if (isObject(element)) {
     const keys = Object.keys(element);
     const result = keys.reduce((acc, key) => {
-      acc.push(`${key}: ${element[key]}\n`);
+      acc.push(`      ${key}: ${element[key]}\n`);
       return acc;
     }, ['{\n']);
-    result.push('}');
+    result.push('   }');
     return result.join('');
   };
   return element;
@@ -18,7 +18,8 @@ const genDiff = (beforeConfig, afterConfig) => {
   const result = keys.reduce((acc, key) => {
     const list = {
       name: '',
-      type: '',
+      type: 'key',
+      status: '',
       value: '',
       valuePrevious: '',
       children: [],
@@ -26,7 +27,7 @@ const genDiff = (beforeConfig, afterConfig) => {
     list.name = key;
     list.value = afterConfig[key];
     list.valuePrevious = beforeConfig[key];
-    if (list.value === list.valuePrevious) list.type = 'unchanged';
+    if (list.value === list.valuePrevious) list.status = 'unchanged';
     if (
       beforeConfig[key] !== afterConfig[key]
       && has(afterConfig, key)
@@ -34,16 +35,16 @@ const genDiff = (beforeConfig, afterConfig) => {
     ) {
       list.value = afterConfig[key];
       list.valuePrevious = beforeConfig[key];
-      list.type = 'edited';
+      list.status = 'edited';
     }
-    if (!has(afterConfig, key)) list.type = 'deleted';
-    if (!has(beforeConfig, key)) list.type = 'added';
+    if (!has(afterConfig, key)) list.status = 'deleted';
+    if (!has(beforeConfig, key)) list.status = 'added';
     if (isObject(afterConfig[key]) && isObject(beforeConfig[key])) {
       list.value = '';
       list.valuePrevious = '';
+      list.type = 'obj';
       list.children.push(genDiff(beforeConfig[key], afterConfig[key]));
     }
-    flattenDeep(list.children);
     return [...acc, list]
   }, []);
   return result;
@@ -51,20 +52,24 @@ const genDiff = (beforeConfig, afterConfig) => {
 
 const render = (config1, config2) => {
   const data = genDiff(config1, config2);
-  const keys = Object.keys(data);
-  const result = keys.reduce((acc, key) => {
-    const { name, type, value, valuePrevious, children } = data[key];
-    if (type === 'unchanged') acc.push(`   ${name}:${value}\n`);
-    if (type === 'added') acc.push(` + ${name}:${value}\n`);
-    if (type === 'deleted') acc.push(` - ${name}:${valuePrevious}\n`);
-    if (type === 'edited') {
-      acc.push(` - ${name}:${valuePrevious}\n`);
-      acc.push(` + ${name}:${value}\n`);
-    };
-    return acc;
-  }, ['{\n']);
-  result.push('}');
-  return result.join('');
+  const iter = (dataChildren) => {
+    const keys = Object.keys(dataChildren);
+    const result = keys.reduce((acc, key) => {
+      const { name, status, type, value, valuePrevious, children } = data[key];
+      if (type === 'obj') acc.push(`   ${name}:\n${flattenDeep(children)}\n`);
+      if (status === 'unchanged') acc.push(`   ${name}:${stringify(value)}\n`);
+      if (status === 'added') acc.push(` + ${name}:${stringify(value)}\n`);
+      if (status === 'deleted') acc.push(` - ${name}:${stringify(valuePrevious)}\n`);
+      if (status === 'edited' && type !== 'obj') {
+        acc.push(` - ${name}:${stringify(valuePrevious)}\n`);
+        acc.push(` + ${name}:${stringify(value)}\n`);
+      };
+      return acc;
+    }, ['{\n']);
+    result.push('}');
+    return result.join('');
+  };
+  return iter(data);
 }
 
 export default render;
