@@ -59,8 +59,10 @@ const render = (config1, config2) => {
     const result = keys.reduce((acc, key) => {
       const {
         name, status, type, value, valuePrevious, children,
-      } = data[key];
-      if (type === 'obj') acc.push(`   ${name}:\n${children.map(iter)}\n`);
+      } = dataChildren[key];
+      if (type === 'obj') {
+        acc.push(`   ${name}:\n${children.map(iter)}\n`);
+      }
       if (status === 'unchanged') acc.push(`   ${name}:${stringify(value)}\n`);
       if (status === 'added') acc.push(` + ${name}:${stringify(value)}\n`);
       if (status === 'deleted') acc.push(` - ${name}:${stringify(valuePrevious)}\n`);
