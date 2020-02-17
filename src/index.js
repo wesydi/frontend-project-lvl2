@@ -61,7 +61,7 @@ const render = (config1, config2) => {
         name, status, type, value, valuePrevious, children,
       } = dataChildren[key];
       if (type === 'obj') {
-        acc.push(`   ${name}:\n${children.map(iter)}\n`);
+        acc.push(`   ${name}: ${children.map(iter)}\n`);
       }
       if (status === 'unchanged') acc.push(`   ${name}:${stringify(value)}\n`);
       if (status === 'added') acc.push(` + ${name}:${stringify(value)}\n`);
