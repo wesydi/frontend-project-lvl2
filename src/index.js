@@ -63,12 +63,12 @@ const render = (config1, config2) => {
       if (type === 'obj') {
         acc.push(`   ${name}: ${children.map(iter)}\n`);
       }
-      if (status === 'unchanged') acc.push(`   ${name}:${stringify(value)}\n`);
-      if (status === 'added') acc.push(` + ${name}:${stringify(value)}\n`);
-      if (status === 'deleted') acc.push(` - ${name}:${stringify(valuePrevious)}\n`);
+      if (status === 'unchanged') acc.push(`   ${name}: ${stringify(value)}\n`);
+      if (status === 'added') acc.push(` + ${name}: ${stringify(value)}\n`);
+      if (status === 'deleted') acc.push(` - ${name}: ${stringify(valuePrevious)}\n`);
       if (status === 'edited' && type !== 'obj') {
-        acc.push(` - ${name}:${stringify(valuePrevious)}\n`);
-        acc.push(` + ${name}:${stringify(value)}\n`);
+        acc.push(` - ${name}: ${stringify(valuePrevious)}\n`);
+        acc.push(` + ${name}: ${stringify(value)}\n`);
       }
       return acc;
     }, ['{\n']);
