@@ -6,10 +6,10 @@ const stringify = (element) => {
   if (isObject(element)) {
     const keys = Object.keys(element);
     const result = keys.reduce((acc, key) => {
-      acc.push(`      ${key}: ${element[key]}\n`);
+      acc.push(`          ${key}: ${element[key]}\n`);
       return acc;
     }, ['{\n']);
-    result.push('   }');
+    result.push('     }');
     return result.join('');
   }
   return element;
@@ -54,6 +54,7 @@ const genDiff = (beforeConfig, afterConfig) => {
 
 const render = (config1, config2) => {
   const data = genDiff(config1, config2);
+  const space = ' ';
   const iter = (dataChildren) => {
     const keys = Object.keys(dataChildren);
     const result = keys.reduce((acc, key) => {
@@ -61,14 +62,14 @@ const render = (config1, config2) => {
         name, status, type, value, valuePrevious, children,
       } = dataChildren[key];
       if (type === 'obj') {
-        acc.push(`   ${name}: ${children.map(iter)}\n`);
+        acc.push(`${space.repeat(3)}${name}: ${children.map(iter)}\n`);
       }
-      if (status === 'unchanged') acc.push(`   ${name}: ${stringify(value)}\n`);
-      if (status === 'added') acc.push(` + ${name}: ${stringify(value)}\n`);
-      if (status === 'deleted') acc.push(` - ${name}: ${stringify(valuePrevious)}\n`);
+      if (status === 'unchanged') acc.push(`${space.repeat(4)}   ${name}: ${stringify(value)}\n`);
+      if (status === 'added') acc.push(`${space.repeat(4)} + ${name}: ${stringify(value)}\n`);
+      if (status === 'deleted') acc.push(`${space.repeat(4)} - ${name}: ${stringify(valuePrevious)}\n`);
       if (status === 'edited' && type !== 'obj') {
-        acc.push(` - ${name}: ${stringify(valuePrevious)}\n`);
-        acc.push(` + ${name}: ${stringify(value)}\n`);
+        acc.push(`${space.repeat(4)} - ${name}: ${stringify(valuePrevious)}\n`);
+        acc.push(`${space.repeat(4)} + ${name}: ${stringify(value)}\n`);
       }
       return acc;
     }, ['{\n']);
