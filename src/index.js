@@ -52,31 +52,4 @@ const genDiff = (beforeConfig, afterConfig) => {
   return result;
 };
 
-const render = (config1, config2) => {
-  const data = genDiff(config1, config2);
-  const space = ' ';
-  const iter = (dataChildren) => {
-    const keys = Object.keys(dataChildren);
-    const result = keys.reduce((acc, key) => {
-      const {
-        name, status, type, value, valuePrevious, children,
-      } = dataChildren[key];
-      if (type === 'obj') {
-        acc.push(`${space.repeat(3)}${name}: ${children.map(iter)}\n`);
-      }
-      if (status === 'unchanged') acc.push(`${space.repeat(4)}   ${name}: ${stringify(value)}\n`);
-      if (status === 'added') acc.push(`${space.repeat(4)} + ${name}: ${stringify(value)}\n`);
-      if (status === 'deleted') acc.push(`${space.repeat(4)} - ${name}: ${stringify(valuePrevious)}\n`);
-      if (status === 'edited' && type !== 'obj') {
-        acc.push(`${space.repeat(4)} - ${name}: ${stringify(valuePrevious)}\n`);
-        acc.push(`${space.repeat(4)} + ${name}: ${stringify(value)}\n`);
-      }
-      return acc;
-    }, ['{\n']);
-    result.push('}');
-    return result.join('');
-  };
-  return iter(data);
-};
-
-export default render;
+export { genDiff, stringify };

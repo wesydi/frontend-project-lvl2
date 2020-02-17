@@ -1,9 +1,9 @@
 import parse from './parsers';
-import genDiff from '.';
+import render from './render';
 
-const difference = (beforeConfig, afterConfig) => {
+const difference = (beforeConfig, afterConfig, format = 'recursive') => {
   const before = parse(beforeConfig);
   const after = parse(afterConfig);
-  return genDiff(before, after);
+  return render(before, after, format);
 };
 export default difference;
