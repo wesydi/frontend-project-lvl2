@@ -1,4 +1,4 @@
-import { genAST, stringify } from '..';
+import { genAST, stringify } from '../AST';
 
 const space = ' ';
 

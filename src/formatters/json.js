@@ -1,4 +1,4 @@
-import { genAST } from '..';
+import { genAST } from '../AST';
 
 const stringify = (element) => {
   if (element instanceof Object) {
