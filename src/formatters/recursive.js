@@ -1,4 +1,4 @@
-import { genDiff, stringify } from '../';
+import { genDiff, stringify } from '..';
 
 const recursive = (beforeConfig, afterConfig) => {
   const data = genDiff(beforeConfig, afterConfig);

@@ -1,16 +1,16 @@
-import { genDiff } from '../';
+import { genDiff } from '..';
 
 const stringify = (element) => {
-    if (element instanceof Object) {
-      const keys = Object.keys(element);
-      const result = keys.reduce((acc, key) => {
-        acc.push(` '${key}': '${element[key]}'`);
-        return acc;
-      }, ['{']);
-      result.push('}');
-      return result.join('');
-    }
-    return element;
+  if (element instanceof Object) {
+    const keys = Object.keys(element);
+    const result = keys.reduce((acc, key) => {
+      acc.push(` '${key}': '${element[key]}'`);
+      return acc;
+    }, ['{']);
+    result.push('}');
+    return result.join('');
+  }
+  return element;
 };
 
 const toJson = (beforeConfig, afterConfig) => {
@@ -22,7 +22,7 @@ const toJson = (beforeConfig, afterConfig) => {
         name, status, type, value, valuePrevious, children,
       } = dataChildren[key];
       if (type === 'obj') {
-        acc[`${name}`] = [ ...children.map(iter) ];
+        acc[`${name}`] = [...children.map(iter)];
       }
       if (status === 'unchanged') acc[`${name}`] = `${stringify(value)}`;
       if (status === 'added') acc[`+ ${name}`] = `${stringify(value)}`;
@@ -36,5 +36,5 @@ const toJson = (beforeConfig, afterConfig) => {
     return JSON.stringify(result);
   };
   return iter(data);
-  };
+};
 export default toJson;
