@@ -11,8 +11,8 @@ const plain = (beforeConfig, afterConfig) => {
         name, status, type, value, valuePrevious, children,
       } = dataChildren[key];
       if (type === 'obj') {
-        return [...acc, children.map((el) => iter(el, [...ancestry, name]))]
-      };
+        return [...acc, children.map((el) => iter(el, [...ancestry, name]))];
+      }
       const fullName = ancestry ? [...ancestry, name].join('.') : name;
       if (status === 'added') acc.push(`Property ${fullName} was added with value: '${stringify(value)}'\n`);
       if (status === 'deleted') acc.push(`Property ${fullName} was deleted\n`);
