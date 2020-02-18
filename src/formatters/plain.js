@@ -24,7 +24,6 @@ const plain = (beforeConfig, afterConfig) => {
         case type !== 'obj' && 'edited':
           acc.push(`Property ${fullName} was changed from '${stringify(valuePrevious)}' to '${stringify(value)}'\n`);
           break;
-        default: return null;
       }
       return acc;
     }, []);

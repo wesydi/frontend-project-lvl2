@@ -38,7 +38,6 @@ const toJson = (beforeConfig, afterConfig) => {
           acc[`- ${name}`] = `${stringify(valuePrevious)}`;
           acc[`+ ${name}`] = `${stringify(value)}`;
           break;
-        default: return null;
       }
       return acc;
     }, {});
