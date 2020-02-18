@@ -13,3 +13,6 @@ Difference between two ini files:
 
 Format 'plain':
 [![asciicast](https://asciinema.org/a/bzfNsMi56QeKhq0vZkKZ47KhN.svg)](https://asciinema.org/a/bzfNsMi56QeKhq0vZkKZ47KhN)
+
+Format 'json':
+[![asciicast](https://asciinema.org/a/vHNgV3xk76nvyKYhgynjAUXzq.svg)](https://asciinema.org/a/vHNgV3xk76nvyKYhgynjAUXzq)
