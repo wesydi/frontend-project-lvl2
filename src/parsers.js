@@ -7,13 +7,12 @@ import ini from 'ini';
 const parse = (filepath) => {
   const format = path.extname(filepath);
   const data = fs.readFileSync(`${path.resolve(process.cwd(), filepath)}`, 'utf-8');
-  let parser;
   if (format === '.json') {
-    parser = JSON.parse(data);
+    return JSON.parse(data);
   } else if (format === '.yml') {
-    parser = yaml.safeLoad(data);
+    return yaml.safeLoad(data);
   } else if (format === '.ini') {
-    parser = ini.parse(data);
+    return ini.parse(data);
   }
   return parser;
 };
