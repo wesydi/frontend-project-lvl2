@@ -1,7 +1,7 @@
 import fs from 'fs';
 import difference from '../src';
 
-const diff = (typeResult) => fs.readFileSync(`${__dirname}/../__fixtures__/result_${typeResult}.txt`, 'utf-8');
+const diff = (typeDiff) => fs.readFileSync(`${__dirname}/../__fixtures__/result_${typeDiff}.txt`, 'utf-8');
 const config1 = (format) => `${__dirname}/../__fixtures__/before${format}`;
 const config2 = (format) => `${__dirname}/../__fixtures__/after${format}`;
 
