@@ -1,8 +1,7 @@
-import { genDiff, stringify } from '../index';
+import { genDiff, stringify } from '../';
 
 const recursive = (beforeConfig, afterConfig) => {
   const data = genDiff(beforeConfig, afterConfig);
-  console.log(data);
   const space = ' ';
   const iter = (dataChildren) => {
     const keys = Object.keys(dataChildren);
