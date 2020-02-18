@@ -3,13 +3,13 @@
 ![build](https://github.com/wesydi/frontend-project-lvl2/workflows/build/badge.svg)
 
 Difference between two json files:
-[![asciicast](https://asciinema.org/a/FsCQcZd5ru0x3MuHLPAzgq8LR.svg)](https://asciinema.org/a/FsCQcZd5ru0x3MuHLPAzgq8LR)
+[![asciicast](https://asciinema.org/a/ZZXbJOF7yfBSeqEqjwy6Rtwo6.svg)](https://asciinema.org/a/ZZXbJOF7yfBSeqEqjwy6Rtwo6)
 
 Difference between two yml files:
-[![asciicast](https://asciinema.org/a/oLj2N6xm4OW1qHpUZ44GyRazX.svg)](https://asciinema.org/a/oLj2N6xm4OW1qHpUZ44GyRazX)
+[![asciicast](https://asciinema.org/a/hptQPcluNoI60Srta9PHTpMfN.svg)](https://asciinema.org/a/hptQPcluNoI60Srta9PHTpMfN)
 
 Difference between two ini files:
-[![asciicast](https://asciinema.org/a/bZsrM0M41iDyXqwu5lhIaIW52.svg)](https://asciinema.org/a/bZsrM0M41iDyXqwu5lhIaIW52)
+[![asciicast](https://asciinema.org/a/fxveYi1f1rG9aHTQ4BwpXqk8K.svg)](https://asciinema.org/a/fxveYi1f1rG9aHTQ4BwpXqk8K)
 
 Format 'plain':
 [![asciicast](https://asciinema.org/a/bzfNsMi56QeKhq0vZkKZ47KhN.svg)](https://asciinema.org/a/bzfNsMi56QeKhq0vZkKZ47KhN)
