@@ -14,8 +14,7 @@ const stringify = (element) => {
 };
 
 const toJson = (beforeConfig, afterConfig) => {
-    const data = genDiff(beforeConfig, afterConfig);
-  const space = ' ';
+  const data = genDiff(beforeConfig, afterConfig);
   const iter = (dataChildren) => {
     const keys = Object.keys(dataChildren);
     const result = keys.reduce((acc, key) => {
@@ -23,19 +22,18 @@ const toJson = (beforeConfig, afterConfig) => {
         name, status, type, value, valuePrevious, children,
       } = dataChildren[key];
       if (type === 'obj') {
-        acc.push(` '${name}': ${children.map((el) => iter(el))}`);
+        acc[`${name}`] = [ ...children.map(iter) ];
       }
-      if (status === 'unchanged') acc.push(` '${name}': '${stringify(value)}'`);
-      if (status === 'added') acc.push(` + '${name}': '${stringify(value)}'`);
-      if (status === 'deleted') acc.push(` - '${name}': '${stringify(valuePrevious)}'`);
+      if (status === 'unchanged') acc[`${name}`] = `${stringify(value)}`;
+      if (status === 'added') acc[`+ ${name}`] = `${stringify(value)}`;
+      if (status === 'deleted') acc[`- ${name}`] = `${stringify(valuePrevious)}`;
       if (status === 'edited' && type !== 'obj') {
-        acc.push(` - '${name}': '${stringify(valuePrevious)}'`);
-        acc.push(` + '${name}': '${stringify(value)}'`);
+        acc[`- ${name}`] = `${stringify(valuePrevious)}`;
+        acc[`+ ${name}`] = `${stringify(value)}`;
       }
       return acc;
-    }, ['{']);
-    result.push('}');
-    return JSON.parse(JSON.stringify(result.join('')));
+    }, {});
+    return JSON.stringify(result);
   };
   return iter(data);
   };
