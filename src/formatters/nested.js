@@ -13,21 +13,21 @@ const nested = (beforeConfig, afterConfig) => {
       if (type === 'obj') {
         acc.push(`${space.repeat(3)}${name}: ${children.map(iter)}\n`);
       }
-      switch(status) {
-        case 'unchanged': 
+      switch (status) {
+        case 'unchanged':
           acc.push(`${space.repeat(4)}   ${name}: ${stringify(value)}\n`);
           break;
-        case 'added': 
+        case 'added':
           acc.push(`${space.repeat(4)} + ${name}: ${stringify(value)}\n`);
           break;
-        case 'deleted': 
+        case 'deleted':
           acc.push(`${space.repeat(4)} - ${name}: ${stringify(valuePrevious)}\n`);
           break;
-        case type !== 'obj' && 'edited': 
+        case type !== 'obj' && 'edited':
           acc.push(`${space.repeat(4)} - ${name}: ${stringify(valuePrevious)}\n`);
           acc.push(`${space.repeat(4)} + ${name}: ${stringify(value)}\n`);
           break;
-        default: null;
+        default: return null;
       }
       return acc;
     }, ['{\n']);

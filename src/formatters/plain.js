@@ -14,17 +14,17 @@ const plain = (beforeConfig, afterConfig) => {
         return [...acc, children.map((el) => iter(el, [...ancestry, name]))];
       }
       const fullName = ancestry ? [...ancestry, name].join('.') : name;
-      switch(status) {
-        case 'added': 
+      switch (status) {
+        case 'added':
           acc.push(`Property ${fullName} was added with value: '${stringify(value)}'\n`);
           break;
-        case 'deleted': 
+        case 'deleted':
           acc.push(`Property ${fullName} was deleted\n`);
           break;
-        case type !== 'obj' && 'edited': 
+        case type !== 'obj' && 'edited':
           acc.push(`Property ${fullName} was changed from '${stringify(valuePrevious)}' to '${stringify(value)}'\n`);
           break;
-        default: null;
+        default: return null;
       }
       return acc;
     }, []);

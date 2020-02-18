@@ -24,21 +24,21 @@ const toJson = (beforeConfig, afterConfig) => {
       if (type === 'obj') {
         acc[`${name}`] = [...children.map(iter)];
       }
-      switch(status) {
-        case 'unchanged': 
+      switch (status) {
+        case 'unchanged':
           acc[`${name}`] = `${stringify(value)}`;
           break;
-        case 'added': 
+        case 'added':
           acc[`+ ${name}`] = `${stringify(value)}`;
           break;
-        case 'deleted': 
+        case 'deleted':
           acc[`- ${name}`] = `${stringify(valuePrevious)}`;
           break;
-        case type !== 'obj' && 'edited': 
+        case type !== 'obj' && 'edited':
           acc[`- ${name}`] = `${stringify(valuePrevious)}`;
           acc[`+ ${name}`] = `${stringify(value)}`;
           break;
-        default: null;
+        default: return null;
       }
       return acc;
     }, {});
