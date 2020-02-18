@@ -15,7 +15,7 @@ const stringify = (element) => {
   return element;
 };
 
-const genDiff = (beforeConfig, afterConfig) => {
+const genAST = (beforeConfig, afterConfig) => {
   const keys = uniq([...Object.keys(beforeConfig), ...Object.keys(afterConfig)]).sort();
   const result = keys.reduce((acc, key) => {
     const list = {
@@ -45,11 +45,11 @@ const genDiff = (beforeConfig, afterConfig) => {
       list.value = '';
       list.valuePrevious = '';
       list.type = 'obj';
-      list.children.push(genDiff(beforeConfig[key], afterConfig[key]));
+      list.children.push(genAST(beforeConfig[key], afterConfig[key]));
     }
     return [...acc, list];
   }, []);
   return result;
 };
 
-export { genDiff, stringify };
+export { genAST, stringify };

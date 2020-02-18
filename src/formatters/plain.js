@@ -1,9 +1,9 @@
-import { genDiff } from '../index';
+import { genAST } from '../index';
 
 const stringify = (element) => (element instanceof Object ? '[complex value]' : element);
 
 const plain = (beforeConfig, afterConfig) => {
-  const data = genDiff(beforeConfig, afterConfig);
+  const data = genAST(beforeConfig, afterConfig);
   const iter = (dataChildren, ancestry) => {
     const keys = Object.keys(dataChildren);
     const result = keys.reduce((acc, key) => {
@@ -14,9 +14,18 @@ const plain = (beforeConfig, afterConfig) => {
         return [...acc, children.map((el) => iter(el, [...ancestry, name]))];
       }
       const fullName = ancestry ? [...ancestry, name].join('.') : name;
-      if (status === 'added') acc.push(`Property ${fullName} was added with value: '${stringify(value)}'\n`);
-      if (status === 'deleted') acc.push(`Property ${fullName} was deleted\n`);
-      if (status === 'edited' && type !== 'obj') acc.push(`Property ${fullName} was changed from '${stringify(valuePrevious)}' to '${stringify(value)}'\n`);
+      switch(status) {
+        case 'added': 
+          acc.push(`Property ${fullName} was added with value: '${stringify(value)}'\n`);
+          break;
+        case 'deleted': 
+          acc.push(`Property ${fullName} was deleted\n`);
+          break;
+        case type !== 'obj' && 'edited': 
+          acc.push(`Property ${fullName} was changed from '${stringify(valuePrevious)}' to '${stringify(value)}'\n`);
+          break;
+        default: null;
+      }
       return acc;
     }, []);
     return result.join('');

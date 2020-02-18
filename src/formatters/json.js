@@ -1,4 +1,4 @@
-import { genDiff } from '..';
+import { genAST } from '..';
 
 const stringify = (element) => {
   if (element instanceof Object) {
@@ -14,7 +14,7 @@ const stringify = (element) => {
 };
 
 const toJson = (beforeConfig, afterConfig) => {
-  const data = genDiff(beforeConfig, afterConfig);
+  const data = genAST(beforeConfig, afterConfig);
   const iter = (dataChildren) => {
     const keys = Object.keys(dataChildren);
     const result = keys.reduce((acc, key) => {
@@ -24,12 +24,21 @@ const toJson = (beforeConfig, afterConfig) => {
       if (type === 'obj') {
         acc[`${name}`] = [...children.map(iter)];
       }
-      if (status === 'unchanged') acc[`${name}`] = `${stringify(value)}`;
-      if (status === 'added') acc[`+ ${name}`] = `${stringify(value)}`;
-      if (status === 'deleted') acc[`- ${name}`] = `${stringify(valuePrevious)}`;
-      if (status === 'edited' && type !== 'obj') {
-        acc[`- ${name}`] = `${stringify(valuePrevious)}`;
-        acc[`+ ${name}`] = `${stringify(value)}`;
+      switch(status) {
+        case 'unchanged': 
+          acc[`${name}`] = `${stringify(value)}`;
+          break;
+        case 'added': 
+          acc[`+ ${name}`] = `${stringify(value)}`;
+          break;
+        case 'deleted': 
+          acc[`- ${name}`] = `${stringify(valuePrevious)}`;
+          break;
+        case type !== 'obj' && 'edited': 
+          acc[`- ${name}`] = `${stringify(valuePrevious)}`;
+          acc[`+ ${name}`] = `${stringify(value)}`;
+          break;
+        default: null;
       }
       return acc;
     }, {});
