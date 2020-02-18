@@ -10,3 +10,6 @@ Difference between two yml files:
 
 Difference between two ini files:
 [![asciicast](https://asciinema.org/a/bZsrM0M41iDyXqwu5lhIaIW52.svg)](https://asciinema.org/a/bZsrM0M41iDyXqwu5lhIaIW52)
+
+Format 'plain':
+[![asciicast](https://asciinema.org/a/bzfNsMi56QeKhq0vZkKZ47KhN.svg)](https://asciinema.org/a/bzfNsMi56QeKhq0vZkKZ47KhN)
