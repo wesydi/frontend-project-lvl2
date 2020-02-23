@@ -6,12 +6,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Install Dependencies
-        run: make install
+      - name: Install Dependencies and test
+        run: |
+          make install 
+          make test
       - name: Lint
         run: make lint
-      - name: Test
-        run: make test
       - name: Publish code coverage
         uses: paambaati/codeclimate-action@v2.4.0
         env:
