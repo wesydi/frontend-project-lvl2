@@ -21,4 +21,3 @@ rules:
   no-console: 0
   import/extensions: 0
   import/no-unresolved: 0
-  default-case: 0

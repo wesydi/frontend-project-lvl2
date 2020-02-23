@@ -27,6 +27,7 @@ const nested = (beforeConfig, afterConfig) => {
           acc.push(`${space.repeat(4)} - ${name}: ${stringify(valuePrevious)}\n`);
           acc.push(`${space.repeat(4)} + ${name}: ${stringify(value)}\n`);
           break;
+        default: return acc;
       }
       return acc;
     }, ['{\n']);
