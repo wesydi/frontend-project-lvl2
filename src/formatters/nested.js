@@ -1,4 +1,17 @@
-import { genAST, stringify } from '../AST';
+import genAST from '../AST';
+
+const stringify = (element) => {
+  if (element instanceof Object) {
+    const keys = Object.keys(element);
+    const result = keys.reduce((acc, key) => {
+      acc.push(`          ${key}: ${element[key]}\n`);
+      return acc;
+    }, ['{\n']);
+    result.push('     }');
+    return result.join('');
+  }
+  return element;
+};
 
 const space = ' ';
 

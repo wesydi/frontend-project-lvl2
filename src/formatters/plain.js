@@ -1,4 +1,4 @@
-import { genAST } from '../AST';
+import genAST from '../AST';
 
 const stringify = (element) => (element instanceof Object ? '[complex value]' : element);
 

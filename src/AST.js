@@ -2,19 +2,6 @@ import {
   uniq, has, isObject,
 } from 'lodash';
 
-const stringify = (element) => {
-  if (isObject(element)) {
-    const keys = Object.keys(element);
-    const result = keys.reduce((acc, key) => {
-      acc.push(`          ${key}: ${element[key]}\n`);
-      return acc;
-    }, ['{\n']);
-    result.push('     }');
-    return result.join('');
-  }
-  return element;
-};
-
 const genAST = (beforeConfig, afterConfig) => {
   const keys = uniq([...Object.keys(beforeConfig), ...Object.keys(afterConfig)]).sort();
   const result = keys.reduce((acc, key) => {
@@ -52,4 +39,4 @@ const genAST = (beforeConfig, afterConfig) => {
   return result;
 };
 
-export { genAST, stringify };
+export default genAST;
