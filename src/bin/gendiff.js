@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import program from 'commander';
-import genDiff from '..';
+import genDifference from '..';
 
 program
   .description('Compares two configuration files and shows a difference.')
@@ -10,7 +10,7 @@ program
   .arguments('<firstConfig> <secondConfig>')
   .action(
     (beforeConfig, afterConfig) => {
-      console.log(genDiff(beforeConfig, afterConfig, program.format));
+      console.log(genDifference(beforeConfig, afterConfig, program.format));
     },
   );
 

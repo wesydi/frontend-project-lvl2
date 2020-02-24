@@ -9,11 +9,11 @@ const cases = [['json', 'nested'], ['yml', 'plain'], ['ini', 'json']];
 
 test.each(cases)(
   'format nested, plain, json',
-  (format, type) => {
-    const beforeConfig = getFixturePath(`before.${format}`);
-    const afterConfig = getFixturePath(`after.${format}`);
-    const expected = readFile(`result_${type}.txt`);
-    const result = genDiff(beforeConfig, afterConfig, type);
-    expect(result).toEqual(expected);
+  (fileExtension, nameFormatter) => {
+    const pathToFirstFile = getFixturePath(`before.${fileExtension}`);
+    const pathToSecondFile = getFixturePath(`after.${fileExtension}`);
+    const expectedResult = readFile(`result_${nameFormatter}.txt`);
+    const result = genDiff(pathToFirstFile, pathToSecondFile, nameFormatter);
+    expect(result).toEqual(expectedResult);
   },
 );
