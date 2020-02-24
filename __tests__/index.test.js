@@ -1,19 +1,19 @@
 import fs from 'fs';
 import path from 'path';
-import difference from '../src';
+import genDiff from '../src';
 
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 const readFile = (filename) => fs.readFileSync(getFixturePath(filename), 'utf-8');
 
-const cases = [['before.json', 'after.yml', 'nested', 'result_nested.txt'], ['before.ini', 'after.yml', 'plain', 'result_plain.txt'], ['before.json', 'after.ini', 'json', 'result_json.txt']];
+const cases = [['json', 'nested'], ['yml', 'plain'], ['ini', 'json']];
 
 test.each(cases)(
   'format nested, plain, json',
-  (firstArg, secondArg, format, expectedResult) => {
-    const beforeConfig = getFixturePath(firstArg);
-    const afterConfig = getFixturePath(secondArg);
-    const expected = readFile(expectedResult);
-    const result = difference(beforeConfig, afterConfig, format);
+  (format, type) => {
+    const beforeConfig = getFixturePath(`before.${format}`);
+    const afterConfig = getFixturePath(`after.${format}`);
+    const expected = readFile(`result_${type}.txt`);
+    const result = genDiff(beforeConfig, afterConfig, type);
     expect(result).toEqual(expected);
   },
 );
