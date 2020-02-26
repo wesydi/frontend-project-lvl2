@@ -1,9 +1,9 @@
 import {
-  uniq, has, isObject,
+  uniq, has, isObject, union
 } from 'lodash';
 
 const genAST = (beforeConfig, afterConfig) => {
-  const keys = uniq([...Object.keys(beforeConfig), ...Object.keys(afterConfig)]).sort();
+  const keys = union([...Object.keys(beforeConfig), ...Object.keys(afterConfig)]);
   const result = keys.reduce((acc, key) => {
     const list = {
       name: '',
