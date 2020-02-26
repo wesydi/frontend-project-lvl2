@@ -1,5 +1,5 @@
 import {
-  uniq, has, isObject, union
+  has, isObject, union,
 } from 'lodash';
 
 const genAST = (beforeConfig, afterConfig) => {
