@@ -16,17 +16,13 @@ const plain = (beforeConfig, afterConfig) => {
       const fullName = ancestry ? [...ancestry, name].join('.') : name;
       switch (status) {
         case 'added':
-          acc.push(`Property ${fullName} was added with value: '${stringify(value)}'\n`);
-          break;
+          return [...acc, `Property ${fullName} was added with value: '${stringify(value)}'\n`];
         case 'deleted':
-          acc.push(`Property ${fullName} was deleted\n`);
-          break;
+          return [...acc, `Property ${fullName} was deleted\n`];
         case 'edited':
-          acc.push(`Property ${fullName} was changed from '${stringify(valuePrevious)}' to '${stringify(value)}'\n`);
-          break;
+          return [...acc, `Property ${fullName} was changed from '${stringify(valuePrevious)}' to '${stringify(value)}'\n`];
         default: return acc;
       }
-      return acc;
     }, []);
     return result.join('');
   };

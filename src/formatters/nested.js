@@ -24,25 +24,19 @@ const nested = (beforeConfig, afterConfig) => {
         name, status, value, valuePrevious, children,
       } = dataChildren[key];
       if (status === 'has children') {
-        acc.push(`${space.repeat(3)}${name}: ${children.map(iter)}\n`);
+        return [...acc, `${space.repeat(3)}${name}: ${children.map(iter)}\n`];
       }
       switch (status) {
         case 'unchanged':
-          acc.push(`${space.repeat(4)}   ${name}: ${stringify(value)}\n`);
-          break;
+          return [...acc, `${space.repeat(4)}   ${name}: ${stringify(value)}\n`];
         case 'added':
-          acc.push(`${space.repeat(4)} + ${name}: ${stringify(value)}\n`);
-          break;
+          return [...acc, `${space.repeat(4)} + ${name}: ${stringify(value)}\n`];
         case 'deleted':
-          acc.push(`${space.repeat(4)} - ${name}: ${stringify(valuePrevious)}\n`);
-          break;
+          return [...acc, `${space.repeat(4)} - ${name}: ${stringify(valuePrevious)}\n`];
         case 'edited':
-          acc.push(`${space.repeat(4)} - ${name}: ${stringify(valuePrevious)}\n`);
-          acc.push(`${space.repeat(4)} + ${name}: ${stringify(value)}\n`);
-          break;
+          return [...acc, `${space.repeat(4)} - ${name}: ${stringify(valuePrevious)}\n`, `${space.repeat(4)} + ${name}: ${stringify(value)}\n`];
         default: return acc;
       }
-      return acc;
     }, ['{\n']);
     result.push('}');
     return result.join('');
