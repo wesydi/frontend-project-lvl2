@@ -3,7 +3,7 @@ import {
 } from 'lodash';
 
 const genAST = (beforeConfig, afterConfig) => {
-  const keys = union([...Object.keys(beforeConfig), ...Object.keys(afterConfig)]);
+  const keys = union(Object.keys(beforeConfig), Object.keys(afterConfig));
   const result = keys.reduce((acc, key) => {
     const list = {
       name: '',
@@ -35,6 +35,7 @@ const genAST = (beforeConfig, afterConfig) => {
     }
     return [...acc, list];
   }, []);
+  console.log(result)
   return result;
 };
 
