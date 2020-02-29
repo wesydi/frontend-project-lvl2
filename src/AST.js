@@ -5,7 +5,7 @@ import {
 const genAST = (beforeConfig, afterConfig) => {
   const keys = union(Object.keys(beforeConfig), Object.keys(afterConfig));
   const AST = keys.reduce((acc, key) => {
-    let list = {
+    const list = {
       name: key,
       status: '',
       value: afterConfig[key],
@@ -14,13 +14,6 @@ const genAST = (beforeConfig, afterConfig) => {
     };
     if (list.value === list.valuePrevious) {
       return [...acc, { ...list, status: 'unchanged' }];
-    }
-    if (
-      beforeConfig[key] !== afterConfig[key]
-      && has(afterConfig, key)
-      && has(beforeConfig, key)
-    ) {
-      list = { ...list, status: 'edited' };
     }
     if (!has(afterConfig, key)) return [...acc, { ...list, status: 'deleted' }];
     if (!has(beforeConfig, key)) return [...acc, { ...list, status: 'added' }];
@@ -33,7 +26,14 @@ const genAST = (beforeConfig, afterConfig) => {
         children: [genAST(beforeConfig[key], afterConfig[key])],
       }];
     }
-    return [...acc, list];
+    if (
+      beforeConfig[key] !== afterConfig[key]
+      && has(afterConfig, key)
+      && has(beforeConfig, key)
+    ) {
+      return [...acc, { ...list, status: 'edited' }];
+    }
+    return acc;
   }, []);
   return AST;
 };
