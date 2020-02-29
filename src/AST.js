@@ -12,24 +12,26 @@ const genAST = (beforeConfig, afterConfig) => {
       valuePrevious: beforeConfig[key],
       children: [],
     };
-    if (list.value === list.valuePrevious) list = { ...list, status: 'unchanged' };
+    if (list.value === list.valuePrevious) {
+      return [...acc, { ...list, status: 'unchanged' }];
+    }
     if (
-      list.value !== list.valuePrevious
+      beforeConfig[key] !== afterConfig[key]
       && has(afterConfig, key)
       && has(beforeConfig, key)
     ) {
       list = { ...list, status: 'edited' };
     }
-    if (!has(afterConfig, key)) list = { ...list, status: 'deleted' };
-    if (!has(beforeConfig, key)) list = { ...list, status: 'added' };
+    if (!has(afterConfig, key)) return [...acc, { ...list, status: 'deleted' }];
+    if (!has(beforeConfig, key)) return [...acc, { ...list, status: 'added' }];
     if (isObject(afterConfig[key]) && isObject(beforeConfig[key])) {
-      list = {
+      return [...acc, {
         ...list,
         value: '',
         valuePrevious: '',
         status: 'has children',
-        children: [...list.children, genAST(beforeConfig[key], afterConfig[key])],
-      };
+        children: [genAST(beforeConfig[key], afterConfig[key])],
+      }];
     }
     return [...acc, list];
   }, []);
