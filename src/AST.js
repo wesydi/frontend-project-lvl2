@@ -14,7 +14,7 @@ const genAST = (beforeConfig, afterConfig) => {
     };
     if (list.value === list.valuePrevious) list = { ...list, status: 'unchanged' };
     if (
-      beforeConfig[key] !== afterConfig[key]
+      list.value !== list.valuePrevious
       && has(afterConfig, key)
       && has(beforeConfig, key)
     ) {
