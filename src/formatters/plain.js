@@ -8,9 +8,9 @@ const plain = (beforeConfig, afterConfig) => {
     const keys = Object.keys(dataChildren);
     const result = keys.reduce((acc, key) => {
       const {
-        name, status, type, value, valuePrevious, children,
+        name, status, value, valuePrevious, children,
       } = dataChildren[key];
-      if (type === 'obj') {
+      if (status === 'has children') {
         return [...acc, children.map((el) => iter(el, [...ancestry, name]))];
       }
       const fullName = ancestry ? [...ancestry, name].join('.') : name;
@@ -21,7 +21,7 @@ const plain = (beforeConfig, afterConfig) => {
         case 'deleted':
           acc.push(`Property ${fullName} was deleted\n`);
           break;
-        case type !== 'obj' && 'edited':
+        case 'edited':
           acc.push(`Property ${fullName} was changed from '${stringify(valuePrevious)}' to '${stringify(value)}'\n`);
           break;
         default: return acc;

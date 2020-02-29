@@ -21,9 +21,9 @@ const nested = (beforeConfig, afterConfig) => {
     const keys = Object.keys(dataChildren);
     const result = keys.reduce((acc, key) => {
       const {
-        name, status, type, value, valuePrevious, children,
+        name, status, value, valuePrevious, children,
       } = dataChildren[key];
-      if (type === 'obj') {
+      if (status === 'has children') {
         acc.push(`${space.repeat(3)}${name}: ${children.map(iter)}\n`);
       }
       switch (status) {
@@ -36,7 +36,7 @@ const nested = (beforeConfig, afterConfig) => {
         case 'deleted':
           acc.push(`${space.repeat(4)} - ${name}: ${stringify(valuePrevious)}\n`);
           break;
-        case type !== 'obj' && 'edited':
+        case 'edited':
           acc.push(`${space.repeat(4)} - ${name}: ${stringify(valuePrevious)}\n`);
           acc.push(`${space.repeat(4)} + ${name}: ${stringify(value)}\n`);
           break;

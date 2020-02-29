@@ -7,7 +7,6 @@ const genAST = (beforeConfig, afterConfig) => {
   const result = keys.reduce((acc, key) => {
     const list = {
       name: '',
-      type: 'key',
       status: '',
       value: '',
       valuePrevious: '',
@@ -31,7 +30,7 @@ const genAST = (beforeConfig, afterConfig) => {
     if (isObject(afterConfig[key]) && isObject(beforeConfig[key])) {
       list.value = '';
       list.valuePrevious = '';
-      list.type = 'obj';
+      list.status = 'has children';
       list.children.push(genAST(beforeConfig[key], afterConfig[key]));
     }
     return [...acc, list];
