@@ -4,7 +4,7 @@ import {
 
 const genAST = (beforeConfig, afterConfig) => {
   const keys = union(Object.keys(beforeConfig), Object.keys(afterConfig));
-  const result = keys.reduce((acc, key) => {
+  const AST = keys.reduce((acc, key) => {
     let list = {
       name: key,
       status: '',
@@ -35,7 +35,7 @@ const genAST = (beforeConfig, afterConfig) => {
     }
     return [...acc, list];
   }, []);
-  return result;
+  return AST;
 };
 
 export default genAST;
