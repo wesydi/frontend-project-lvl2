@@ -5,37 +5,34 @@ import {
 const genAST = (beforeConfig, afterConfig) => {
   const keys = union(Object.keys(beforeConfig), Object.keys(afterConfig));
   const result = keys.reduce((acc, key) => {
-    const list = {
-      name: '',
+    let list = {
+      name: key,
       status: '',
-      value: '',
-      valuePrevious: '',
+      value: afterConfig[key],
+      valuePrevious: beforeConfig[key],
       children: [],
     };
-    list.name = key;
-    list.value = afterConfig[key];
-    list.valuePrevious = beforeConfig[key];
-    if (list.value === list.valuePrevious) list.status = 'unchanged';
+    if (list.value === list.valuePrevious) list = { ...list, status: 'unchanged'};
     if (
       beforeConfig[key] !== afterConfig[key]
       && has(afterConfig, key)
       && has(beforeConfig, key)
     ) {
-      list.value = afterConfig[key];
-      list.valuePrevious = beforeConfig[key];
-      list.status = 'edited';
+      list = { ...list, status: 'edited'}
     }
-    if (!has(afterConfig, key)) list.status = 'deleted';
-    if (!has(beforeConfig, key)) list.status = 'added';
+    if (!has(afterConfig, key)) list = { ...list, status: 'deleted'};
+    if (!has(beforeConfig, key)) list = { ...list, status: 'added'};
     if (isObject(afterConfig[key]) && isObject(beforeConfig[key])) {
-      list.value = '';
-      list.valuePrevious = '';
-      list.status = 'has children';
-      list.children.push(genAST(beforeConfig[key], afterConfig[key]));
+      list = {
+        ...list,
+        value: '',
+        valuePrevious: '',
+        status: 'has children',
+        children: [ ...list.children, genAST(beforeConfig[key], afterConfig[key])]
+      };
     }
     return [...acc, list];
   }, []);
-  console.log(result)
   return result;
 };
 
