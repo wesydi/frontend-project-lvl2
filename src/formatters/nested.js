@@ -38,8 +38,7 @@ const nested = (beforeConfig, afterConfig) => {
         default: return acc;
       }
     }, ['{\n']);
-    result.push('}');
-    return result.join('');
+    return [...result, '}'].join('');
   };
   return iter(data);
 };
