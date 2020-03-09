@@ -9,7 +9,7 @@ const parse = (type, data) => {
       return ini.parse(data);
     case '.json':
       return JSON.parse(data);
-    default: return null;
+    default: throw new Error(`Unknown type of data: '${type}'!`);
   }
 };
 export default parse;
