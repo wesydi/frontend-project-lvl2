@@ -35,7 +35,7 @@ const nested = (beforeConfig, afterConfig) => {
           return [...acc, `${space.repeat(4)} - ${name}: ${stringify(valuePrevious)}\n`];
         case 'edited':
           return [...acc, `${space.repeat(4)} - ${name}: ${stringify(valuePrevious)}\n`, `${space.repeat(4)} + ${name}: ${stringify(value)}\n`];
-        default: return acc;
+        default: throw new Error(`Unknown status: '${status}'!`);
       }
     }, ['{\n']);
     return [...result, '}'].join('');

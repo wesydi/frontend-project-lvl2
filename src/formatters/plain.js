@@ -21,7 +21,9 @@ const plain = (beforeConfig, afterConfig) => {
           return [...acc, `Property ${fullName} was deleted\n`];
         case 'edited':
           return [...acc, `Property ${fullName} was changed from '${stringify(valuePrevious)}' to '${stringify(value)}'\n`];
-        default: return acc;
+        case 'unchanged':
+          return acc;
+        default: throw new Error(`Unknown status: '${status}'!`);
       }
     }, []);
     return result.join('');
