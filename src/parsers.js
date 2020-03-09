@@ -1,14 +1,14 @@
 import yaml from 'js-yaml';
 import ini from 'ini';
 
-const parse = (extensionFile, dataFile) => {
-  switch (extensionFile) {
+const parse = (type, data) => {
+  switch (type) {
     case '.yml':
-      return yaml.safeLoad(dataFile);
+      return yaml.safeLoad(data);
     case '.ini':
-      return ini.parse(dataFile);
+      return ini.parse(data);
     case '.json':
-      return JSON.parse(dataFile);
+      return JSON.parse(data);
     default: return null;
   }
 };
