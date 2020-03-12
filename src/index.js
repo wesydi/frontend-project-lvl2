@@ -21,12 +21,12 @@ const render = (beforeConfig, afterConfig, format) => {
 };
 
 const genDifference = (pathToFirstFile, pathToSecondFile, format = 'nested') => {
-  const extensionFirstFile = extensionFile(pathToFirstFile);
+  const typeFirstFile = extensionFile(pathToFirstFile).slice(1);
   const dataFirstFile = readFile(pathToFirstFile);
-  const beforeConfig = parse(extensionFirstFile, dataFirstFile);
-  const extensionSecondFile = extensionFile(pathToSecondFile);
+  const beforeConfig = parse(typeFirstFile, dataFirstFile);
+  const typeSecondFile = extensionFile(pathToSecondFile).slice(1);
   const dataSecondFile = readFile(pathToSecondFile);
-  const afterConfig = parse(extensionSecondFile, dataSecondFile);
+  const afterConfig = parse(typeSecondFile, dataSecondFile);
   return render(beforeConfig, afterConfig, format);
 };
 export default genDifference;
