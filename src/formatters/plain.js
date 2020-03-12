@@ -6,26 +6,26 @@ const plain = (beforeConfig, afterConfig) => {
   const data = genAST(beforeConfig, afterConfig);
   const iter = (dataChildren, ancestry) => {
     const keys = Object.keys(dataChildren);
-    const result = keys.reduce((acc, key) => {
+    const result = keys.map((key) => {
       const {
         name, status, value, valuePrevious, children,
       } = dataChildren[key];
       if (status === 'has children') {
-        return [...acc, children.map((el) => iter(el, [...ancestry, name]))];
+        return children.map((el) => iter(el, [...ancestry, name]));
       }
       const fullName = ancestry ? [...ancestry, name].join('.') : name;
       switch (status) {
         case 'added':
-          return [...acc, `Property ${fullName} was added with value: '${stringify(value)}'\n`];
+          return `Property ${fullName} was added with value: '${stringify(value)}'\n`;
         case 'deleted':
-          return [...acc, `Property ${fullName} was deleted\n`];
+          return `Property ${fullName} was deleted\n`;
         case 'edited':
-          return [...acc, `Property ${fullName} was changed from '${stringify(valuePrevious)}' to '${stringify(value)}'\n`];
+          return `Property ${fullName} was changed from '${stringify(valuePrevious)}' to '${stringify(value)}'\n`;
         case 'unchanged':
-          return acc;
+          return '';
         default: throw new Error(`Unknown status: '${status}'!`);
       }
-    }, []);
+    });
     return result.join('');
   };
   return iter(data, []);

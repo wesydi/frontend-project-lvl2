@@ -4,7 +4,7 @@ import {
 
 const genAST = (beforeConfig, afterConfig) => {
   const keys = union(Object.keys(beforeConfig), Object.keys(afterConfig));
-  const AST = keys.reduce((acc, key) => {
+  const AST = keys.map((key) => {
     const node = {
       name: key,
       status: '',
@@ -12,29 +12,26 @@ const genAST = (beforeConfig, afterConfig) => {
       valuePrevious: beforeConfig[key],
       children: [],
     };
-    if (node.value === node.valuePrevious) {
-      return [...acc, { ...node, status: 'unchanged' }];
-    }
-    if (!has(afterConfig, key)) return [...acc, { ...node, status: 'deleted' }];
-    if (!has(beforeConfig, key)) return [...acc, { ...node, status: 'added' }];
+    if (!has(afterConfig, key)) return { ...node, status: 'deleted' };
+    if (!has(beforeConfig, key)) return { ...node, status: 'added' };
     if (isObject(afterConfig[key]) && isObject(beforeConfig[key])) {
-      return [...acc, {
+      return {
         ...node,
         value: '',
         valuePrevious: '',
         status: 'has children',
         children: [genAST(beforeConfig[key], afterConfig[key])],
-      }];
+      };
     }
     if (
       beforeConfig[key] !== afterConfig[key]
       && has(afterConfig, key)
       && has(beforeConfig, key)
     ) {
-      return [...acc, { ...node, status: 'edited' }];
+      return { ...node, status: 'edited' };
     }
-    return acc;
-  }, []);
+    return { ...node, status: 'unchanged' };
+  });
   return AST;
 };
 
