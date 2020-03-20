@@ -7,7 +7,6 @@ const genAST = (beforeConfig, afterConfig) => {
   const AST = keys.map((key) => {
     const node = {
       name: key,
-      status: '',
       value: afterConfig[key],
       valuePrevious: beforeConfig[key],
     };
