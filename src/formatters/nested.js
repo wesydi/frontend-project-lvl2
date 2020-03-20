@@ -1,19 +1,13 @@
 import genAST from '../AST';
 
-const stringify = (element) => {
-  if (element instanceof Object) {
-    const keys = Object.keys(element);
-    const result = keys.reduce((acc, key) => {
-      acc.push(`          ${key}: ${element[key]}\n`);
-      return acc;
-    }, ['{\n']);
-    result.push('     }');
-    return result.join('');
-  }
-  return element;
-};
-
 const space = ' ';
+
+const stringify = (element) => {
+  if (!(element instanceof Object)) return element;
+  const keys = Object.keys(element);
+  const result = keys.map((key) => `{\n${space.repeat(10)}${key}: ${element[key]}\n`, ['{\n']);
+  return [...result, `${space.repeat(5)}}`].join('');
+};
 
 const nested = (beforeConfig, afterConfig) => {
   const data = genAST(beforeConfig, afterConfig);
