@@ -28,7 +28,7 @@ const nested = (beforeConfig, afterConfig) => {
         case 'deleted':
           return `${space.repeat(4)} - ${name}: ${stringify(valuePrevious)}\n`;
         case 'edited':
-          return [`${space.repeat(4)} - ${name}: ${stringify(valuePrevious)}\n`, `${space.repeat(4)} + ${name}: ${stringify(value)}\n`].join('');
+          return `${space.repeat(4)} - ${name}: ${stringify(valuePrevious)}\n${space.repeat(4)} + ${name}: ${stringify(value)}\n`;
         default: throw new Error(`Unknown status: '${status}'!`);
       }
     });
