@@ -17,7 +17,7 @@ const nested = (beforeConfig, afterConfig) => {
       const {
         name, status, value, valuePrevious, children,
       } = dataChildren[key];
-      if (status === 'has children') {
+      if (children) {
         return `${space.repeat(3)}${name}: ${children.map(iter)}\n`;
       }
       switch (status) {

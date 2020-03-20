@@ -10,7 +10,7 @@ const plain = (beforeConfig, afterConfig) => {
       const {
         name, status, value, valuePrevious, children,
       } = dataChildren[key];
-      if (status === 'has children') {
+      if (children) {
         return children.map((el) => iter(el, [...ancestry, name]));
       }
       const fullName = ancestry ? [...ancestry, name].join('.') : name;

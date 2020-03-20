@@ -10,14 +10,12 @@ const genAST = (beforeConfig, afterConfig) => {
       status: '',
       value: afterConfig[key],
       valuePrevious: beforeConfig[key],
-      children: [],
     };
     if (!has(afterConfig, key)) return { ...node, status: 'deleted' };
     if (!has(beforeConfig, key)) return { ...node, status: 'added' };
     if (isObject(afterConfig[key]) && isObject(beforeConfig[key])) {
       return {
         name: key,
-        status: 'has children',
         children: [genAST(beforeConfig[key], afterConfig[key])],
       };
     }
