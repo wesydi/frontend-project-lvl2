@@ -1,5 +1,3 @@
-import genAST from '../AST';
-
 const space = ' ';
 
 const stringify = (element) => {
@@ -9,8 +7,7 @@ const stringify = (element) => {
   return [...result, `${space.repeat(5)}}`].join('');
 };
 
-const nested = (beforeConfig, afterConfig) => {
-  const data = genAST(beforeConfig, afterConfig);
+const nested = (AST) => {
   const iter = (dataChildren) => {
     const keys = Object.keys(dataChildren);
     const result = keys.map((key) => {
@@ -34,6 +31,6 @@ const nested = (beforeConfig, afterConfig) => {
     });
     return ['{\n', ...result, '}'].join('');
   };
-  return iter(data);
+  return iter(AST);
 };
 export default nested;

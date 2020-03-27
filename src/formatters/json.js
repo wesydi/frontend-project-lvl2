@@ -1,7 +1,2 @@
-import genAST from '../AST';
-
-const toJson = (beforeConfig, afterConfig) => {
-  const data = genAST(beforeConfig, afterConfig);
-  return JSON.stringify(data);
-};
+const toJson = (AST) => JSON.stringify(AST);
 export default toJson;

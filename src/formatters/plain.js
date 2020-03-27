@@ -1,9 +1,6 @@
-import genAST from '../AST';
-
 const stringify = (element) => (element instanceof Object ? '[complex value]' : element);
 
-const plain = (beforeConfig, afterConfig) => {
-  const data = genAST(beforeConfig, afterConfig);
+const plain = (AST) => {
   const iter = (dataChildren, ancestry) => {
     const keys = Object.keys(dataChildren);
     const result = keys
@@ -28,6 +25,6 @@ const plain = (beforeConfig, afterConfig) => {
       });
     return result.join('');
   };
-  return iter(data, []);
+  return iter(AST, []);
 };
 export default plain;
