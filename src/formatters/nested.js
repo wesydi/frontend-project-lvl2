@@ -15,7 +15,7 @@ const nested = (AST) => {
         name, status, value, valuePrevious, children,
       } = dataChildren[key];
       if (children) {
-        return `${space(numberSpace * depth + 2)}${name}: ${children.map((x) => iter(x, depth + 1, numberSpace * depth + 2))}\n`;
+        return `${space(numberSpace * depth + 2)}${name}: ${children.map((x) => iter(x, depth + 1, numberSpace - 1))}\n`;
       }
       switch (status) {
         case 'unchanged':
