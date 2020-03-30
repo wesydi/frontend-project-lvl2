@@ -19,13 +19,13 @@ const nested = (AST) => {
       }
       switch (status) {
         case 'unchanged':
-          return `${space(numberSpace + 2)}${name}: ${stringify(value, depth, numberSpace)}\n`;
+          return `${space(numberSpace * depth + 2)}${name}: ${stringify(value, depth, numberSpace)}\n`;
         case 'added':
-          return `${space(numberSpace)}+ ${name}: ${stringify(value, depth, numberSpace)}\n`;
+          return `${space(numberSpace * depth)}+ ${name}: ${stringify(value, depth, numberSpace)}\n`;
         case 'deleted':
-          return `${space(numberSpace)}- ${name}: ${stringify(valuePrevious, depth, numberSpace)}\n`;
+          return `${space(numberSpace * depth)}- ${name}: ${stringify(valuePrevious, depth, numberSpace)}\n`;
         case 'edited':
-          return `${space(numberSpace)}- ${name}: ${stringify(valuePrevious, depth, numberSpace)}\n${space(numberSpace - 1)} + ${name}: ${stringify(value, depth, numberSpace)}\n`;
+          return `${space(numberSpace * depth)}- ${name}: ${stringify(valuePrevious, depth, numberSpace)}\n${space(numberSpace - 1)} + ${name}: ${stringify(value, depth, numberSpace)}\n`;
         default: throw new Error(`Unknown status: '${status}'!`);
       }
     });
