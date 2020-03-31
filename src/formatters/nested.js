@@ -9,10 +9,10 @@ const stringify = (element, depth, numberSpace) => {
 
 const nested = (AST) => {
   const iter = (dataChildren, depth, numberSpace) => {
-    const result = dataChildren.map((data) => {
+    const result = dataChildren.map((node) => {
       const {
         name, status, value, valuePrevious, children,
-      } = data;
+      } = node;
       if (children) {
         return `${space(numberSpace * depth + 2)}${name}: ${iter(children, depth + 1, numberSpace - 1)}\n`;
       }

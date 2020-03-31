@@ -3,10 +3,10 @@ const stringify = (element) => (element instanceof Object ? '[complex value]' : 
 const plain = (AST) => {
   const iter = (dataChildren, ancestry) => {
     const result = dataChildren
-      .map((data) => {
+      .map((node) => {
         const {
           name, status, value, valuePrevious, children,
-        } = data;
+        } = node;
         if (children) {
           return iter(children, [...ancestry, name]);
         }
