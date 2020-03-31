@@ -7,11 +7,10 @@ const plain = (AST) => {
         const {
           name, status, value, valuePrevious, children,
         } = node;
-        if (children) {
-          return iter(children, [...ancestry, name]);
-        }
         const fullName = ancestry ? [...ancestry, name].join('.') : name;
         switch (status) {
+          case 'hasChildren':
+            return iter(children, [...ancestry, name]);
           case 'added':
             return `Property ${fullName} was added with value: '${stringify(value)}'\n`;
           case 'deleted':

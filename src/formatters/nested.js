@@ -13,10 +13,9 @@ const nested = (AST) => {
       const {
         name, status, value, valuePrevious, children,
       } = node;
-      if (children) {
-        return `${space(numberSpace * depth + 2)}${name}: ${iter(children, depth + 1, numberSpace - 1)}\n`;
-      }
       switch (status) {
+        case 'hasChildren':
+          return `${space(numberSpace * depth + 2)}${name}: ${iter(children, depth + 1, numberSpace - 1)}\n`;
         case 'unchanged':
           return `${space(numberSpace * depth + 2)}${name}: ${stringify(value, depth, numberSpace)}\n`;
         case 'added':
