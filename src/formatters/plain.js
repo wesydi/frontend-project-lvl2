@@ -2,15 +2,13 @@ const stringify = (element) => (element instanceof Object ? '[complex value]' : 
 
 const plain = (AST) => {
   const iter = (dataChildren, ancestry) => {
-    const keys = Object.keys(dataChildren);
-    const result = keys
-      .filter((key) => dataChildren[key].status !== 'unchanged')
-      .map((key) => {
+    const result = dataChildren
+      .map((data) => {
         const {
           name, status, value, valuePrevious, children,
-        } = dataChildren[key];
+        } = data;
         if (children) {
-          return children.map((el) => iter(el, [...ancestry, name]));
+          return iter(children, [...ancestry, name]);
         }
         const fullName = ancestry ? [...ancestry, name].join('.') : name;
         switch (status) {
@@ -20,6 +18,8 @@ const plain = (AST) => {
             return `Property ${fullName} was deleted\n`;
           case 'edited':
             return `Property ${fullName} was changed from '${stringify(valuePrevious)}' to '${stringify(value)}'\n`;
+          case 'unchanged':
+            return '';
           default: throw new Error(`Unknown status: '${status}'!`);
         }
       });
