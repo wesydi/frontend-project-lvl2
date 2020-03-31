@@ -15,7 +15,7 @@ const genAST = (beforeConfig, afterConfig) => {
     if (isObject(afterConfig[key]) && isObject(beforeConfig[key])) {
       return {
         name: key,
-        children: [genAST(beforeConfig[key], afterConfig[key])],
+        children: genAST(beforeConfig[key], afterConfig[key]),
       };
     }
     if (
