@@ -7,8 +7,8 @@ const genAST = (beforeConfig, afterConfig) => {
   const AST = keys.map((key) => {
     const node = {
       name: key,
-      value: afterConfig[key],
-      valuePrevious: beforeConfig[key],
+      oldValue: beforeConfig[key],
+      newValue: afterConfig[key],
     };
     if (!has(afterConfig, key)) return { ...node, status: 'deleted' };
     if (!has(beforeConfig, key)) return { ...node, status: 'added' };

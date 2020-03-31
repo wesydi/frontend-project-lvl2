@@ -11,19 +11,19 @@ const nested = (AST) => {
   const iter = (dataChildren, depth) => {
     const result = dataChildren.map((node) => {
       const {
-        name, status, value, valuePrevious, children,
+        name, status, newValue, oldValue, children,
       } = node;
       switch (status) {
         case 'hasChildren':
           return `${space(depth + 2)}${name}: ${iter(children, depth + 2)}\n`;
         case 'unchanged':
-          return `${space(depth + 2)}${name}: ${stringify(value, depth)}\n`;
+          return `${space(depth + 2)}${name}: ${stringify(newValue, depth)}\n`;
         case 'added':
-          return `${space(depth)}+ ${name}: ${stringify(value, depth)}\n`;
+          return `${space(depth)}+ ${name}: ${stringify(newValue, depth)}\n`;
         case 'deleted':
-          return `${space(depth)}- ${name}: ${stringify(valuePrevious, depth)}\n`;
+          return `${space(depth)}- ${name}: ${stringify(oldValue, depth)}\n`;
         case 'edited':
-          return `${space(depth)}- ${name}: ${stringify(valuePrevious, depth)}\n${space(depth - 1)} + ${name}: ${stringify(value, depth)}\n`;
+          return `${space(depth)}- ${name}: ${stringify(oldValue, depth)}\n${space(depth - 1)} + ${name}: ${stringify(newValue, depth)}\n`;
         default: throw new Error(`Unknown status: '${status}'!`);
       }
     });
