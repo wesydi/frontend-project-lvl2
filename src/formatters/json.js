@@ -1,2 +1,1 @@
-const toJson = (AST) => JSON.stringify(AST);
-export default toJson;
+export default JSON.stringify;
