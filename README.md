@@ -93,7 +93,7 @@ Nested output format is a hierarchical tree. Affected key:value pairs are marked
 
 **Examples**
 
-[![asciicast](https://asciinema.org/a/GkHONc8uetQm6VnbI7Pz6JkhF.svg)](https://asciinema.org/a/GkHONc8uetQm6VnbI7Pz6JkhF)
+[![asciicast](https://asciinema.org/a/qAqCMvGjjWq8TNWdDJ2itSw5R.svg)](https://asciinema.org/a/qAqCMvGjjWq8TNWdDJ2itSw5R)
 
 #### Plain
 Plain output format display information for every affected row in plain text format. If object was fully changed it's displays as a 'complex value' string.
