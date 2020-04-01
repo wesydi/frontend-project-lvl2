@@ -58,7 +58,7 @@ gendiff before.json after.json
 + group3: {
      fee: 100500
   }
-
+}
 
 ```
 
