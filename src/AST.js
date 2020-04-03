@@ -21,8 +21,6 @@ const genAST = (beforeConfig, afterConfig) => {
     }
     if (
       beforeConfig[key] !== afterConfig[key]
-      && has(afterConfig, key)
-      && has(beforeConfig, key)
     ) {
       return { ...node, status: 'edited' };
     }
