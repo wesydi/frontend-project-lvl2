@@ -3,6 +3,7 @@ const stringify = (element) => (element instanceof Object ? '[complex value]' : 
 const plain = (AST) => {
   const iter = (dataChildren, ancestry) => {
     const result = dataChildren
+      .filter((node) => node.status !== 'unchanged')
       .map((node) => {
         const {
           name, status, newValue, oldValue, children,
@@ -12,17 +13,15 @@ const plain = (AST) => {
           case 'hasChildren':
             return iter(children, [...ancestry, name]);
           case 'added':
-            return `Property ${fullName} was added with value: '${stringify(newValue)}'\n`;
+            return `Property ${fullName} was added with value: '${stringify(newValue)}'`;
           case 'deleted':
-            return `Property ${fullName} was deleted\n`;
+            return `Property ${fullName} was deleted`;
           case 'edited':
-            return `Property ${fullName} was changed from '${stringify(oldValue)}' to '${stringify(newValue)}'\n`;
-          case 'unchanged':
-            return null;
+            return `Property ${fullName} was changed from '${stringify(oldValue)}' to '${stringify(newValue)}'`;
           default: throw new Error(`Unknown status: '${status}'!`);
         }
       });
-    return result.join('');
+    return result.join('\n');
   };
   return iter(AST, []);
 };
