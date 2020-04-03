@@ -27,31 +27,31 @@ gendiff before.json after.json
 
 {
   common: {
-      setting1: Value 1
-    - setting2: 200
-    - setting3: true
-    + setting3: {
-         key: value
-      }
-      setting6: {
-        key: value
-      + ops: vops
-      }
-    + follow: false
-    + setting4: blah blah
-    + setting5: {
-         key5: value5
-      }
+    setting1: Value 1
+  - setting2: 200
+  - setting3: true
+  + setting3: {
+       key: value
     }
+    setting6: {
+      key: value
+    + ops: vops
+    }
+  + follow: false
+  + setting4: blah blah
+  + setting5: {
+       key5: value5
+    }
+  }
   group1: {
-    - baz: bas
-    + baz: bars
-      foo: bar
-    - nest: {
-         key: value
-      }
-    + nest: str
+  - baz: bas
+  + baz: bars
+    foo: bar
+  - nest: {
+       key: value
     }
+  + nest: str
+  }
 - group2: {
      abc: 12345
   }
@@ -93,7 +93,7 @@ Nested output format is a hierarchical tree. Affected key:value pairs are marked
 
 **Examples**
 
-[![asciicast](https://asciinema.org/a/GkHONc8uetQm6VnbI7Pz6JkhF.svg)](https://asciinema.org/a/GkHONc8uetQm6VnbI7Pz6JkhF)
+[![asciicast](https://asciinema.org/a/qAqCMvGjjWq8TNWdDJ2itSw5R.svg)](https://asciinema.org/a/qAqCMvGjjWq8TNWdDJ2itSw5R)
 
 #### Plain
 Plain output format display information for every affected row in plain text format. If object was fully changed it's displays as a 'complex value' string.
