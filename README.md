@@ -102,7 +102,7 @@ Plain output format display information for every affected row in plain text for
 
 Using same before.json and after.json files let's look on output:
 
-[![asciicast](https://asciinema.org/a/bzfNsMi56QeKhq0vZkKZ47KhN.svg)](https://asciinema.org/a/bzfNsMi56QeKhq0vZkKZ47KhN)
+[![asciicast](https://asciinema.org/a/OGeCGNZMylQvs6LtZZPS5QVgm.svg)](https://asciinema.org/a/OGeCGNZMylQvs6LtZZPS5QVgm)
 
 #### JSON
 JSON mode outputs reflects AST with following status:
