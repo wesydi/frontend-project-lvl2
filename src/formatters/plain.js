@@ -18,7 +18,7 @@ const plain = (AST) => {
           case 'edited':
             return `Property ${fullName} was changed from '${stringify(oldValue)}' to '${stringify(newValue)}'\n`;
           case 'unchanged':
-            return '';
+            return null;
           default: throw new Error(`Unknown status: '${status}'!`);
         }
       });
