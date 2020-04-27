@@ -121,4 +121,6 @@ gendiff before.json after.json --format json
 ### Configuration format supports
 
 gendiff supports json, yml, ini formats with nested structure.
+
+TEST
 You can easily add your own parser in parsers.js.
